@@ -1,42 +1,44 @@
 import java.util.Scanner;
 
 public class atBashEncryption {
-	static Scanner input = new Scanner(System.in);
+	private static Scanner	in	= new Scanner(System.in), input = new Scanner(System.in);
+	private static String	encrypt, decrypt, output = "", alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890 !\"Â£$%^&*()-=+,./\\",
+	        atBash = "MNOPQRSTUVWXYZ67890ABCDEFG!\"Â£$HI12345JKLfghijklmno%^&*()-=+,./\\pq rstuvwxyzabcde";
+	private static int		i, j, sCase, aLen, bashLen = atBash.length();
 
 	public static void main(String args[]) {
-		System.out.println("Do you want to: " + "\nencrypt" + "\ndecrypt");
-		switchCase(input.nextLine());
+		System.out.println("Do you want to: " + "\n1: encrypt" + "\n2: decrypt");
+		sCase = in.nextInt();
+		switchCase(sCase);
+		in.close();
 	}
 
-	public static String switchCase(String a) {
-		String encrypt, decrypt;
-
+	private static String switchCase(int a) {
 		switch (a) {
-			case "encrypt":
+			case 1:
 				System.out.println("Please enter what you want to encrypt");
-				encrypt = encrypt(input.nextLine());
-				System.out.println(encrypt);
-				return encrypt;
-			case "decrypt":
+				encrypt = input.nextLine();
+				aLen = encrypt.length();
+				System.out.println(encrypt(encrypt, aLen));
+				break;
+			// return encrypt;
+			case 2:
 				System.out.println("Please enter what you want to decrypt");
-				decrypt = decrypt(input.nextLine());
-				System.out.println(decrypt);
-				return decrypt;
+				decrypt = input.nextLine();
+				aLen = decrypt.length();
+				System.out.println(decrypt(decrypt, aLen));
+				break;
+			// return decrypt;
 			default:
 				System.out.println("Please choose either encrypt or decrypt");
 				break;
 		}
 		input.close();
-
 		return "";
 	}
 
-	public static String encrypt(String a) {
-		String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz !\"£$%^&*()-=+,./\\",
-		        atBash = "MNOPQRSTUVWXYZABCDEFG!\"£$HIJKLfghijklmno%^&*()-=+,./\\pq rstuvwxyzabcde", output = "";
-		int i, j, aLen = a.length(), bashLen = atBash.length();
-
-		for (i = 0; i < aLen; i++) {
+	private static String encrypt(String a, int b) {
+		for (i = 0; i < b; i++) {
 			for (j = 0; j < bashLen; j++) {
 				if (a.charAt(i) == alphabet.charAt(j)) {
 					output += atBash.charAt(j);
@@ -47,12 +49,8 @@ public class atBashEncryption {
 		return output;
 	}
 
-	public static String decrypt(String a) {
-		String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz !\"£$%^&*()-=+,./\\",
-		        atBash = "MNOPQRSTUVWXYZABCDEFG!\"£$HIJKLfghijklmno%^&*()-=+,./\\pq rstuvwxyzabcde", output = "";
-		int i, j, aLen = a.length(), bashLen = atBash.length();
-
-		for (i = 0; i < aLen; i++) {
+	private static String decrypt(String a, int b) {
+		for (i = 0; i < b; i++) {
 			for (j = 0; j < bashLen; j++) {
 				if (a.charAt(i) == atBash.charAt(j)) {
 					output += alphabet.charAt(j);
